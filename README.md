@@ -1,3 +1,5 @@
 Description: Proyecto de videojuego con libreria pygame
 
-Author: Sebastian Tafur
+Author: Sebastian Tafur Torres
+
+Proyecto: Jala-Admision
