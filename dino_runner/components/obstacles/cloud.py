@@ -5,11 +5,11 @@ class Cloud(Obstacle):
 
     def __init__(self, image):
         super().__init__(image)
-        posiciones = [100, 90, 150]
+        posiciones = [50, 80, 100]
         pos = random.choice(posiciones)
         self.rect.y = pos
 
-        posiciones = [ 900, 1100]
+        posiciones = [ 900, 1300]
         pos_x = random.choice(posiciones)
         self.rect.x = pos_x
         
