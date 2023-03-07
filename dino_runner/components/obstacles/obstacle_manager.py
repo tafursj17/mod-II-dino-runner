@@ -40,5 +40,6 @@ class ObstacleManager:
         for obstacle in (self.obstacles_pasive):
             obstacle.draw(screen)
         
-        
-        
+    def remove_obstacles(self):
+        self.obstacles = []    
+        self.obstacles_pasive = [] 
