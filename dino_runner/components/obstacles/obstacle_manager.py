@@ -4,6 +4,7 @@ import random
 import pygame
 from dino_runner.components.obstacles.bird import Bird
 from dino_runner.components.obstacles.cactus import Cactus, CactusLarge
+from dino_runner.components.obstacles.cloud import Cloud
 from dino_runner.utils.constants import BIRD, CLOUD, LARGE_CACTUS, SMALL_CACTUS
 
 
@@ -11,6 +12,7 @@ class ObstacleManager:
     
     def __init__(self):
         self.obstacles = []
+        self.obstacles_pasive = []
 
     def update(self, game):
 
@@ -19,15 +21,23 @@ class ObstacleManager:
             choices = (Cactus(SMALL_CACTUS[0]),Cactus(SMALL_CACTUS[1]), Cactus(SMALL_CACTUS[2]), CactusLarge(LARGE_CACTUS[0]), CactusLarge(LARGE_CACTUS[1]), CactusLarge(LARGE_CACTUS[2]), Bird(BIRD[0]))
             self.obstacles.append(random.choice(choices))
 
+            cloud_object = Cloud(CLOUD)
+            self.obstacles_pasive.append(cloud_object)
+        
+        for obstacle in self.obstacles_pasive:
+            obstacle.update(game.game_speed, obstacles=self.obstacles_pasive)
+
         for obstacle in self.obstacles:
             obstacle.update(game.game_speed, obstacles=self.obstacles)
             if game.player.dino_rect.colliderect(obstacle.rect):
                 pygame.time.delay(500)
-                self.dino_run = False
                 game.playing = False
 
     def draw(self, screen):
         for obstacle in (self.obstacles):
+            obstacle.draw(screen)
+        
+        for obstacle in (self.obstacles_pasive):
             obstacle.draw(screen)
         
         
