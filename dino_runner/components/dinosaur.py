@@ -57,10 +57,11 @@ class Dinosaur(Sprite):
 
     
     def duck(self):
-        if self.step < 5 == 0:
+        if self.step < 5:
             self.image = DUCKING[0]
         else:
             self.image = DUCKING[1]
+
         self.dino_rect = self.image.get_rect()
         self.dino_rect.y = self.Y_POS + 33
         self.dino_rect.x = self.X_POS
