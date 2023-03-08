@@ -1,5 +1,7 @@
 import pygame
-from dino_runner.utils.constants import RUNNING, DUCKING, JUMPING
+from dino_runner.components import game
+from dino_runner.components.obstacles.obstacle import Obstacle
+from dino_runner.utils.constants import DEAD, RUNNING, DUCKING, JUMPING
 from pygame.sprite import Sprite
 
 class Dinosaur(Sprite):
@@ -29,6 +31,7 @@ class Dinosaur(Sprite):
             self.dino_duck = False
             self.dino_jump = True
 
+
     def update(self, user_input):
         self.process_event(user_input)
         if self.dino_duck:
@@ -54,7 +57,6 @@ class Dinosaur(Sprite):
         self.dino_rect = self.image.get_rect()
         self.dino_rect.y = self.Y_POS
         self.dino_rect.x = self.X_POS
-
     
     def duck(self):
         if self.step < 5:

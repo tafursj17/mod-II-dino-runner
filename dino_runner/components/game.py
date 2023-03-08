@@ -1,7 +1,7 @@
 import pygame
 from dino_runner.components.dinosaur import Dinosaur
 from dino_runner.components.obstacles.obstacle_manager import ObstacleManager
-from dino_runner.utils.constants import BG, ICON, SCREEN_HEIGHT, SCREEN_WIDTH, TITLE, FPS
+from dino_runner.utils.constants import BG, ICON, RUNNING, SCREEN_HEIGHT, SCREEN_WIDTH, TITLE, FPS
 from dino_runner.utils.text_utils import get_centered_message, get_dead_dinosaur, get_score_element
 
 
@@ -25,7 +25,7 @@ class Game:
 
     def show_score(self):
         self.points += 1
-
+        
         if self.points % 100 == 0:
             self.game_speed += 1
 
@@ -46,6 +46,7 @@ class Game:
         events = pygame.event.get()
         for event in events:
             if event.type == pygame.QUIT:
+                
                 print('Game Over')
                 pygame.quit()
                 self.deads = self.INITIAL_DEAD
@@ -60,11 +61,12 @@ class Game:
             self.events()
             self.update()
             self.draw()
+        pygame.time.delay(500)
         self.playing = False
         self.points = 0
         self.game_speed = self.INITIAL_SPEED
         self.obstacle_manager.remove_obstacles()
-        self.deads += 1
+        # self.deads += 1
 
     def events(self):
         for event in pygame.event.get():
