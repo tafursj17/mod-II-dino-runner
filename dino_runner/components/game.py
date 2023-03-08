@@ -2,11 +2,12 @@ import pygame
 from dino_runner.components.dinosaur import Dinosaur
 from dino_runner.components.obstacles.obstacle_manager import ObstacleManager
 from dino_runner.utils.constants import BG, ICON, SCREEN_HEIGHT, SCREEN_WIDTH, TITLE, FPS
-from dino_runner.utils.text_utils import get_centered_message, get_score_element
+from dino_runner.utils.text_utils import get_centered_message, get_dead_dinosaur, get_score_element
 
 
 class Game:
     INITIAL_SPEED = 20
+    INITIAL_DEAD = 0
     def __init__(self):
         pygame.init()
         pygame.display.set_caption(TITLE)
@@ -20,6 +21,7 @@ class Game:
         self.player = Dinosaur()
         self.obstacle_manager = ObstacleManager()
         self.points = 0
+        self.deads = self.INITIAL_DEAD
 
     def show_score(self):
         self.points += 1
@@ -30,10 +32,15 @@ class Game:
         score, score_rect = get_score_element(self.points)
         self.screen.blit(score, score_rect)
 
+    def show_deads(self):
+        dead, dead_rect = get_dead_dinosaur(self.deads)
+        self.screen.blit(dead, dead_rect)
+
     def show_menu(self):
         self.screen.fill((255, 255, 255))
         text, text_rect = get_centered_message('Press any Key to Start!!')
         self.screen.blit(text, text_rect)
+        self.show_deads()
         pygame.display.update()
 
         events = pygame.event.get()
@@ -41,6 +48,8 @@ class Game:
             if event.type == pygame.QUIT:
                 print('Game Over')
                 pygame.quit()
+                self.deads = self.INITIAL_DEAD
+           
             if event.type == pygame.KEYDOWN:
                 self.run()
 
@@ -55,6 +64,7 @@ class Game:
         self.points = 0
         self.game_speed = self.INITIAL_SPEED
         self.obstacle_manager.remove_obstacles()
+        self.deads += 1
 
     def events(self):
         for event in pygame.event.get():
@@ -73,6 +83,7 @@ class Game:
         self.player.draw(self.screen)
         self.obstacle_manager.draw(self.screen)
         self.show_score()
+        self.show_deads()
         pygame.display.update()
         pygame.display.flip()
 

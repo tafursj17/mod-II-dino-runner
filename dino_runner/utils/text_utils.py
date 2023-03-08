@@ -13,6 +13,15 @@ def get_score_element(points):
     text_rect.center = (1010, 20)
     return text, text_rect
 
+
+def get_dead_dinosaur(deads):
+    font = pygame.font.Font(FONT_STYLE, 20)
+    text = font.render(f'Deads:{deads}', True, BLACK_COLOR) 
+    text_rect = text.get_rect()
+    text_rect.center = (100, 20)
+    return text, text_rect
+
+
 def get_centered_message(message):
     font = pygame.font.Font(FONT_STYLE, 50)
     text = font.render(message, True, BLACK_COLOR) 
