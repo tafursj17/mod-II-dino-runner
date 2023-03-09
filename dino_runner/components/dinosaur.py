@@ -1,7 +1,7 @@
 import pygame
 from dino_runner.components import game
 from dino_runner.components.obstacles.obstacle import Obstacle
-from dino_runner.utils.constants import DEAD, DEFAULT_TYPE, SHIELD_TYPE ,RUNNING, DUCKING, JUMPING
+from dino_runner.utils.constants import DEAD, DEFAULT_TYPE, DUCKING_HAMMER, HAMMER_TYPE, JUMPING_HAMMER, RUNNING_HAMMER, SHIELD_TYPE ,RUNNING, DUCKING, JUMPING
 from dino_runner.utils.constants import RUNNING_SHIELD, JUMPING_SHIELD, DUCKING_SHIELD
 from pygame.sprite import Sprite
 
@@ -22,9 +22,9 @@ class Dinosaur(Sprite):
         self.dino_duck = False
         self.dino_jump = False
         self.type = DEFAULT_TYPE
-        self.run_img = {DEFAULT_TYPE: RUNNING, SHIELD_TYPE: RUNNING_SHIELD}
-        self.jump_img = {DEFAULT_TYPE: JUMPING, SHIELD_TYPE: JUMPING_SHIELD}
-        self.duck_img = {DEFAULT_TYPE: DUCKING, SHIELD_TYPE: DUCKING_SHIELD}
+        self.run_img = {DEFAULT_TYPE: RUNNING, SHIELD_TYPE: RUNNING_SHIELD, HAMMER_TYPE:RUNNING_HAMMER}
+        self.jump_img = {DEFAULT_TYPE: JUMPING, SHIELD_TYPE: JUMPING_SHIELD , HAMMER_TYPE:JUMPING_HAMMER}
+        self.duck_img = {DEFAULT_TYPE: DUCKING, SHIELD_TYPE: DUCKING_SHIELD , HAMMER_TYPE:DUCKING_HAMMER}
         self.power_up_time = 0
     
     def process_event(self, user_input):
@@ -91,4 +91,7 @@ class Dinosaur(Sprite):
     def active_power_up(self, power_up_type):
         if power_up_type == SHIELD_TYPE:
             self.type = SHIELD_TYPE
+            self.power_up_time = self.POWER_UP_TIME
+        elif power_up_type == HAMMER_TYPE:
+            self.type = HAMMER_TYPE
             self.power_up_time = self.POWER_UP_TIME
