@@ -5,7 +5,7 @@ import pygame
 from dino_runner.components.obstacles.bird import Bird
 from dino_runner.components.obstacles.cactus import Cactus, CactusLarge
 from dino_runner.components.obstacles.cloud import Cloud
-from dino_runner.utils.constants import BIRD, CLOUD, DEAD, LARGE_CACTUS, SMALL_CACTUS
+from dino_runner.utils.constants import BIRD, CLOUD, DEAD, LARGE_CACTUS, SHIELD_TYPE, SMALL_CACTUS
 
 
 class ObstacleManager:
@@ -29,7 +29,9 @@ class ObstacleManager:
 
         for obstacle in self.obstacles:
             obstacle.update(game.game_speed, obstacles=self.obstacles)
-            if game.player.dino_rect.colliderect(obstacle.rect):
+            if game.player.type == SHIELD_TYPE:
+                pass
+            elif game.player.dino_rect.colliderect(obstacle.rect):
                 game.player.image = DEAD[0]
                 game.deads += 1
                 game.playing = False
