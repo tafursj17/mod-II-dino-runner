@@ -1,9 +1,10 @@
+import os
 import pygame
 from dino_runner.components.dinosaur import Dinosaur
 from dino_runner.components.obstacles.obstacle_manager import ObstacleManager
 from dino_runner.components.power_ups.power_up_manager import PowerUpManager
 
-from dino_runner.utils.constants import BG, ICON, RUNNING, SCREEN_HEIGHT, SCREEN_WIDTH, TITLE, FPS
+from dino_runner.utils.constants import BG, ICON, IMG_DIR, RUNNING, SCREEN_HEIGHT, SCREEN_WIDTH, TITLE, FPS
 from dino_runner.utils.text_utils import get_centered_message, get_dead_dinosaur, get_score_element
 
 
@@ -43,7 +44,11 @@ class Game:
     def show_menu(self):
         self.screen.fill((255, 255, 255))
         text, text_rect = get_centered_message('Press any Key to Start!!')
+        image, image_rect = pygame.image.load(os.path.join(IMG_DIR, "Dino/DinoRun1.png")), pygame.Rect((0, 0), (100, 100))
+        image_rect.center = (SCREEN_WIDTH // 2, (SCREEN_HEIGHT // 2)-100)
         self.screen.blit(text, text_rect)
+        self.screen.blit(image, image_rect)
+        self
         self.show_deads()
         pygame.display.update()
 
